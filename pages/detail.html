@@ -1,0 +1,218 @@
+﻿<main class="w-full pt-28 bg-surface min-h-[calc(100vh-140px)]">
+  <div class="max-w-7xl mx-auto px-margin md:px-margin-tablet lg:px-margin-desktop py-space-md">
+    
+    <!-- Breadcrumb & Back Button -->
+    <div class="flex items-center justify-between gap-4 mb-space-md pb-space-xs border-b border-surface-container-highest/60">
+      <nav class="flex items-center gap-2 text-body-sm text-on-surface-variant flex-wrap">
+        <a href="#" data-path="beranda" class="hover:text-primary transition-colors flex items-center gap-1">
+          <span class="material-symbols-outlined text-[16px]">home</span>
+          <span>Beranda</span>
+        </a>
+        <span class="text-outline-variant">/</span>
+        <a href="#" data-path="katalog-produk" class="hover:text-primary transition-colors">Katalog</a>
+        <span class="text-outline-variant">/</span>
+        <span id="detailBreadcrumbKat" class="text-on-surface-variant capitalize">Outdoor Gear</span>
+        <span class="text-outline-variant">/</span>
+        <span id="detailBreadcrumbNama" class="font-bold text-on-surface truncate max-w-[200px] sm:max-w-xs">Nama Produk</span>
+      </nav>
+      <button type="button" id="btnBackToKatalog" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface font-label-md text-label-md transition-all shrink-0">
+        <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+        <span>Kembali ke Katalog</span>
+      </button>
+    </div>
+
+    <!-- Product Detail Container -->
+    <div class="bg-surface-container-lowest rounded-2xl shadow-sm p-4 sm:p-6 lg:p-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+        
+        <!-- Left: Image Gallery & Badges (5 cols) -->
+        <div class="lg:col-span-5 flex flex-col gap-4">
+          <div class="relative w-full aspect-square rounded-2xl overflow-hidden bg-surface-container-low border border-surface-container-high group">
+            <img id="detailImg" src="" alt="Foto Produk" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+            
+            <!-- Type & Condition Badges -->
+            <div class="absolute top-3 left-3 flex flex-col gap-1.5 items-start">
+              <span id="detailBadgeType" class="px-3 py-1 rounded-full font-label-technical text-label-technical font-bold uppercase tracking-wider shadow-sm">
+                PRELOVED
+              </span>
+              <span id="detailBadgeGrade" class="px-3 py-1 rounded-full bg-black/70 backdrop-blur-sm text-white font-label-technical text-label-technical font-semibold shadow-sm">
+                GRADE A
+              </span>
+            </div>
+
+            <!-- Favorite Button -->
+            <button id="detailFavBtn" class="absolute top-3 right-3 w-10 h-10 rounded-full bg-white/90 hover:bg-white shadow-md flex items-center justify-center text-on-surface-variant hover:text-error transition-all">
+              <span class="material-symbols-outlined text-[22px]">favorite</span>
+            </button>
+
+            <!-- Location & Rating Overlay -->
+            <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent text-white p-4 flex items-center justify-between font-label-md">
+              <div class="flex items-center gap-1.5">
+                <span class="material-symbols-outlined text-[18px]">location_on</span>
+                <span id="detailKota">Kota</span>
+              </div>
+              <div class="flex items-center gap-1">
+                <span class="text-amber-400">★</span>
+                <span id="detailRatingText" class="font-bold">4.8</span>
+                <span id="detailUlasanText" class="text-white/80 text-body-sm">(24 ulasan)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Feature Trust Badges -->
+          <div class="grid grid-cols-2 gap-3 pt-2">
+            <div class="flex items-center gap-2.5 p-3 rounded-xl bg-surface-container-low/70">
+              <span class="material-symbols-outlined text-primary text-[22px]">verified_user</span>
+              <div class="flex flex-col">
+                <span class="font-label-md text-label-md font-bold text-on-surface">Cek Fisik 12 Titik</span>
+                <span class="font-body-sm text-[11px] text-on-surface-variant">Lolos uji kelayakan</span>
+              </div>
+            </div>
+            <div class="flex items-center gap-2.5 p-3 rounded-xl bg-surface-container-low/70">
+              <span class="material-symbols-outlined text-primary text-[22px]">shield</span>
+              <div class="flex flex-col">
+                <span class="font-label-md text-label-md font-bold text-on-surface">Rekber Escrow</span>
+                <span class="font-body-sm text-[11px] text-on-surface-variant">Deposit & uang aman</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Information & Actions (7 cols) -->
+        <div class="lg:col-span-7 flex flex-col gap-6">
+          
+          <!-- Category & Title -->
+          <div class="flex flex-col gap-2">
+            <div class="flex items-center gap-2 flex-wrap">
+              <span id="detailKategoriTag" class="px-2.5 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-technical text-label-technical font-bold uppercase">
+                Kategori
+              </span>
+              <span id="detailTersediaTag" class="text-body-sm text-on-surface-variant flex items-center gap-1">
+                <span class="w-2 h-2 rounded-full bg-primary inline-block"></span>
+                <span id="detailUnitTersedia">Stok Tersedia</span>
+              </span>
+            </div>
+            <h1 id="detailNama" class="font-headline-lg text-headline-lg font-bold text-on-surface tracking-tight">
+              Nama Produk
+            </h1>
+          </div>
+
+          <!-- Price Section -->
+          <div class="p-4 sm:p-5 rounded-xl bg-surface-container-low flex flex-col gap-2">
+            <span class="font-label-technical text-label-technical text-outline uppercase tracking-wider" id="detailPriceLabel">
+              Harga Barang Preloved
+            </span>
+            <div class="flex items-baseline gap-3 flex-wrap">
+              <span id="detailHarga" class="font-display-mobile text-display-mobile sm:font-display sm:text-display font-extrabold text-primary">
+                Rp 0
+              </span>
+              <span id="detailHargaCoret" class="font-title-md text-title-md text-on-surface-variant line-through">
+                Rp 0
+              </span>
+              <span id="detailHematBadge" class="px-2 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed font-label-md text-label-md font-bold">
+                Hemat 0%
+              </span>
+              <span id="detailRentalUnitBadge" class="hidden px-2.5 py-1 rounded-lg bg-surface-container font-label-md text-label-md text-on-surface font-semibold">
+                Min. 1 Hari Sewa
+              </span>
+            </div>
+            <p id="detailPriceSubtext" class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+              Garansi fisik 100% uang kembali jika kondisi tidak sesuai deskripsi.
+            </p>
+          </div>
+
+          <!-- Description Section -->
+          <div class="space-y-2">
+            <h3 class="font-title-md text-title-md font-bold text-on-surface">Deskripsi &amp; Kondisi Alat</h3>
+            <p id="detailDesc" class="font-body-md text-body-md text-on-surface leading-relaxed">
+              Deskripsi produk lengkap di sini.
+            </p>
+          </div>
+
+          <!-- Specifications Table -->
+          <div class="space-y-2">
+            <h3 class="font-title-md text-title-md font-bold text-on-surface">Spesifikasi Detail</h3>
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+              <div class="bg-surface-container-low p-3 rounded-lg flex flex-col">
+                <span class="font-label-technical text-label-technical text-outline uppercase">Kondisi / Grade</span>
+                <span id="specGrade" class="font-label-lg text-label-lg font-bold text-on-surface">-</span>
+              </div>
+              <div class="bg-surface-container-low p-3 rounded-lg flex flex-col">
+                <span class="font-label-technical text-label-technical text-outline uppercase">Tingkat Kemulusan</span>
+                <span id="specPersen" class="font-label-lg text-label-lg font-bold text-on-surface">-</span>
+              </div>
+              <div class="bg-surface-container-low p-3 rounded-lg flex flex-col">
+                <span class="font-label-technical text-label-technical text-outline uppercase">Lokasi Gear</span>
+                <span id="specKota" class="font-label-lg text-label-lg font-bold text-on-surface">-</span>
+              </div>
+              <div class="bg-surface-container-low p-3 rounded-lg flex flex-col">
+                <span class="font-label-technical text-label-technical text-outline uppercase">Tipe Transaksi</span>
+                <span id="specTipe" class="font-label-lg text-label-lg font-bold text-on-surface">-</span>
+              </div>
+              <div class="bg-surface-container-low p-3 rounded-lg flex flex-col">
+                <span class="font-label-technical text-label-technical text-outline uppercase">Riwayat Terpakai</span>
+                <span id="specSewa" class="font-label-lg text-label-lg font-bold text-on-surface">-</span>
+              </div>
+              <div class="bg-surface-container-low p-3 rounded-lg flex flex-col">
+                <span class="font-label-technical text-label-technical text-outline uppercase">Proteksi Rimba</span>
+                <span class="font-label-lg text-label-lg font-bold text-primary">Tercakup</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="h-px bg-surface-container-highest/60 my-1"></div>
+
+          <!-- Quantity Selector & Action Buttons Section -->
+          <div class="flex flex-col gap-4">
+            
+            <!-- Quantity Row -->
+            <div class="flex items-center justify-between sm:justify-start gap-6">
+              <span class="font-label-lg text-label-lg font-bold text-on-surface">Jumlah Unit:</span>
+              <div class="flex items-center bg-surface-container rounded-xl p-1 shadow-inner">
+                <button type="button" id="btnQtyMinus" class="w-9 h-9 flex items-center justify-center font-bold text-lg text-on-surface hover:bg-surface-container-lowest rounded-lg transition-colors select-none">
+                  -
+                </button>
+                <span id="displayQty" class="w-12 text-center font-label-lg text-label-lg font-bold text-on-surface">
+                  1
+                </span>
+                <button type="button" id="btnQtyPlus" class="w-9 h-9 flex items-center justify-center font-bold text-lg text-on-surface hover:bg-surface-container-lowest rounded-lg transition-colors select-none">
+                  +
+                </button>
+              </div>
+              <span id="subtotalPreview" class="text-body-sm text-on-surface-variant font-semibold">
+                Subtotal: <b class="text-primary" id="detailSubtotalValue">Rp 0</b>
+              </span>
+            </div>
+
+            <!-- Action Buttons: 2 Options (Beli Sekarang & Tambahkan ke Keranjang) -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+              
+              <!-- Option 1: Tambahkan ke Keranjang -->
+              <button type="button" id="btnAddToCartDetail" class="w-full py-3.5 px-4 rounded-xl border-2 border-primary text-primary hover:bg-primary-fixed-dim/20 active:bg-primary-fixed-dim/30 font-headline-sm text-[16px] font-bold flex items-center justify-center gap-2 transition-all shadow-sm">
+                <span class="material-symbols-outlined text-[22px]">add_shopping_cart</span>
+                <span>Tambahkan ke Keranjang</span>
+              </button>
+
+              <!-- Option 2: Beli Sekarang / Sewa Sekarang -->
+              <button type="button" id="btnBuyNowDetail" class="w-full py-3.5 px-4 rounded-xl bg-primary hover:bg-primary-container text-on-primary font-headline-sm text-[16px] font-bold flex items-center justify-center gap-2 transition-all shadow-md active:scale-[0.99]">
+                <span class="material-symbols-outlined text-[22px]" id="btnBuyNowIcon">shopping_bag</span>
+                <span id="btnBuyNowText">Beli Sekarang</span>
+              </button>
+
+            </div>
+
+            <!-- Guarantee Note -->
+            <div class="flex items-center gap-2 text-on-surface-variant text-body-sm pt-1">
+              <span class="material-symbols-outlined text-primary text-[18px]">verified</span>
+              <span>Barang baru akan masuk ke keranjang setelah Anda menekan <b>Tambahkan ke Keranjang</b> atau <b>Beli Sekarang</b>.</span>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</main>

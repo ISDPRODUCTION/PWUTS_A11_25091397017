@@ -1,5 +1,26 @@
 /* RimbaLestari Outdoor - UTS Pemrograman Web. HTML + CSS + jQuery, data dummy (tanpa database). */
-var CUR = 'masuk', cart = 3, PER = 6;
+var CUR = 'masuk', PER = 6;
+var CART_ITEMS = [];
+try {
+  var sc = localStorage.getItem('rimba_cart');
+  if (sc) CART_ITEMS = JSON.parse(sc);
+  else CART_ITEMS = []; // Default kosong!
+} catch(e){ CART_ITEMS = []; }
+
+function simpanCart(){
+  try { localStorage.setItem('rimba_cart', JSON.stringify(CART_ITEMS)); } catch(e){}
+  renderCartBadge();
+}
+
+function renderCartBadge(){
+  var totalQty = 0;
+  CART_ITEMS.forEach(function(it){ totalQty += (Number(it.qty) || 1); });
+  if (totalQty > 0){
+    $('#cartBadge').text(totalQty).removeClass('hidden');
+  } else {
+    $('#cartBadge').text('0').addClass('hidden');
+  }
+}
 var S0 = {q:'', tipe:{preloved:true, rental:true}, kat:'', kota:'Semua', max:3500000, grade:{A:true,B:true,C:false}, sort:'relevant', page:1};
 var S = $.extend(true, {}, S0);
 var USERS = [{id:'rian@email.com', pw:'Rimba1234'}, {id:'081234567890', pw:'Rimba1234'}];
@@ -32,7 +53,7 @@ function renderAuthHeader(){
     $('#headerUserIcon').addClass('hidden');
     $('#headerUserName').text('Rian Outdoor').removeClass('text-primary').addClass('text-on-surface');
     $('#headerLogoutBtn').removeClass('hidden');
-    $('#cartBadge').text(cart).removeClass('hidden');
+    renderCartBadge();
   } else {
     $('#headerUserAvatar').addClass('hidden');
     $('#headerUserIcon').removeClass('hidden');
@@ -79,7 +100,7 @@ var PATH = {katalog:'katalog-produk', riwayat:'pemesanan-dan-riwayat'};
 function setActive(){
   var $nav = $('header nav').first(), act = ($nav.data('active-classes') || '').split(' ');
   var path = '';
-  if (CUR === 'katalog'){ path = (S.tipe.rental && !S.tipe.preloved) ? 'rental-alat' : ((S.tipe.preloved && !S.tipe.rental) ? 'jual-preloved' : 'katalog-produk'); }
+  if (CUR === 'katalog' || CUR === 'detail'){ path = (S.tipe.rental && !S.tipe.preloved) ? 'rental-alat' : ((S.tipe.preloved && !S.tipe.rental) ? 'jual-preloved' : 'katalog-produk'); }
   else if (CUR === 'riwayat') path = 'pemesanan-dan-riwayat';
   else if (CUR === 'masuk') path = 'masuk';
   $nav.find('a').each(function(){
@@ -120,24 +141,27 @@ function kartu(p){
   var b1 = r ? 'SIAP RENTAL' : 'PRELOVED', b1c = r ? 'bg-inverse-surface text-white' : 'bg-primary-fixed text-on-primary-fixed';
   var b2 = r ? ('TERSEDIA ' + p.unit + ' UNIT') : ('GRADE ' + p.grade + ' (' + p.persen + '%)');
   var harga = r
-    ? '<div class="flex items-end justify-between"><div><span class="text-body-sm text-on-surface-variant">Tarif Harian</span><div><span class="font-headline-md text-headline-md font-bold">' + rp(p.harga) + '</span> <span class="text-body-sm text-on-surface-variant">/hari</span></div></div><span class="bg-surface-container rounded px-2 py-1 text-label-md">Min. ' + p.minHari + ' Hari</span></div>'
+    ? '<div class="flex items-end justify-between"><div><span class="text-body-sm text-on-surface-variant">Tarif Harian</span><div><span class="font-headline-md text-headline-md font-bold">' + rp(p.harga) + '</span> <span class="text-body-sm text-on-surface-variant">/hari</span></div></div><span class="bg-surface-container rounded px-2 py-1 text-label-md">Min. ' + (p.minHari || 1) + ' Hari</span></div>'
     : '<div class="flex items-end justify-between"><div><span class="text-body-sm text-on-surface-variant line-through">' + rp(p.coret) + '</span><div class="font-headline-md text-headline-md font-bold">' + rp(p.harga) + '</div></div><span class="bg-primary-fixed text-on-primary-fixed rounded px-2 py-1 text-label-md font-bold">Hemat ' + Math.round((1 - p.harga/p.coret) * 100) + '%</span></div>';
   var tombol = r
-    ? '<button data-ca="rent" data-id="' + p.id + '" class="w-full bg-inverse-surface text-white rounded-lg py-2.5 font-label-lg text-label-lg font-bold flex items-center justify-center gap-2"><span class="material-symbols-outlined text-[18px]">event</span>Sewa Sekarang</button>'
-    : '<div class="grid grid-cols-2 gap-2"><button data-ca="cart" data-id="' + p.id + '" class="bg-surface-container text-on-surface rounded-lg py-2.5 font-label-lg text-label-lg flex items-center justify-center gap-1"><span class="material-symbols-outlined text-[18px]">add_shopping_cart</span>+ Tas</button><button data-ca="buy" data-id="' + p.id + '" class="bg-primary text-on-primary rounded-lg py-2.5 font-label-lg text-label-lg font-bold">Beli Langsung</button></div>';
-  return '<article class="product-item bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col">' +
-    '<div class="relative h-48 bg-secondary-container"><img src="' + (p.img || '') + '" alt="' + p.nama + '" class="w-full h-full object-cover">' +
+    ? '<button type="button" data-detail="' + p.id + '" class="w-full bg-inverse-surface hover:bg-on-background text-white rounded-lg py-2.5 font-label-lg text-label-lg font-bold flex items-center justify-center gap-2 transition-colors"><span class="material-symbols-outlined text-[18px]">event</span>Lihat Detail &amp; Sewa</button>'
+    : '<button type="button" data-detail="' + p.id + '" class="w-full bg-primary hover:bg-primary-container text-on-primary rounded-lg py-2.5 font-label-lg text-label-lg font-bold flex items-center justify-center gap-1.5 transition-colors"><span class="material-symbols-outlined text-[18px]">info</span>Lihat Detail &amp; Beli</button>';
+  return '<article data-detail="' + p.id + '" class="product-item cursor-pointer bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col group">' +
+    '<div class="relative h-48 bg-secondary-container overflow-hidden"><img src="' + (p.img || '') + '" alt="' + p.nama + '" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">' +
     '<div class="absolute top-2 left-2 flex flex-col items-start gap-1"><span class="' + b1c + ' rounded px-2 py-0.5 text-label-technical font-label-technical">' + b1 + '</span><span class="bg-black/60 text-white rounded px-2 py-0.5 text-label-technical font-label-technical">' + b2 + '</span></div>' +
-    '<button data-ca="fav" class="absolute top-2 right-2 w-8 h-8 rounded-full bg-white/90 flex items-center justify-center"><span class="material-symbols-outlined text-[18px]">favorite</span></button>' +
+    '<button type="button" data-ca="fav" class="absolute top-2 right-2 w-8 h-8 rounded-full bg-white/90 hover:bg-white flex items-center justify-center z-10 shadow-sm"><span class="material-symbols-outlined text-[18px]">favorite</span></button>' +
     '<div class="absolute bottom-0 inset-x-0 bg-black/50 text-white px-3 py-1.5 flex justify-between text-label-md font-label-md"><span>' + p.kota + '</span><span>★ ' + p.rating.toFixed(1) + ' (' + p.ulasan + ')</span></div></div>' +
-    '<div class="p-4 flex flex-col gap-2 flex-1"><h3 class="font-title-md text-title-md font-bold">' + p.nama + '</h3><p class="text-body-sm text-on-surface-variant">' + p.desc + '</p><div class="mt-auto pt-2 flex flex-col gap-3">' + harga + tombol + '</div></div></article>';
+    '<div class="p-4 flex flex-col gap-2 flex-1"><h3 class="font-title-md text-title-md font-bold text-on-surface group-hover:text-primary transition-colors">' + p.nama + '</h3><p class="text-body-sm text-on-surface-variant line-clamp-2">' + p.desc + '</p><div class="mt-auto pt-2 flex flex-col gap-3">' + harga + tombol + '</div></div></article>';
 }
-$(document).on('click', '[data-ca]', function(){
-  var a = $(this).data('ca'), p = PRODUK.filter(function(x){ return x.id == $(this).data('id'); }.bind(this))[0];
-  if (a === 'fav'){ var s = $(this).find('span'); s.css('color', s.css('color') === 'rgb(186, 26, 26)' ? '' : '#ba1a1a'); return; }
-  cart++; $('#cartBadge').text(cart);
-  if (a === 'cart') toast(p.nama + ' masuk ke tas');
-  else { toast(p.nama + ' ditambahkan, lanjut ke keranjang'); muat('keranjang'); }
+$(document).on('click', '[data-detail]', function(e){
+  if ($(e.target).closest('[data-ca="fav"]').length) return;
+  var id = $(this).data('detail') || $(this).closest('[data-detail]').data('detail');
+  if (id) muat('detail', {id: id});
+});
+$(document).on('click', '[data-ca="fav"]', function(e){
+  e.stopPropagation();
+  var s = $(this).find('span');
+  s.css('color', s.css('color') === 'rgb(186, 26, 26)' ? '' : '#ba1a1a');
 });
 $(document).on('click', '[data-go]', function(){ muat($(this).data('go'), {mode: $(this).data('mode'), reset: true}); });
 
@@ -228,9 +252,143 @@ INIT.katalog = function(){
 };
 INIT.beranda = function(){ $('#featured').html([1,2,3,6].map(function(i){ return kartu(PRODUK[i-1]); }).join('')); };
 
-/* ---------- Halaman Keranjang & Form Sewa (item 2.c) ---------- */
+/* ---------- Halaman Detail Produk (Poin Pembaruan: Halaman Antara Sebelum Keranjang) ---------- */
+var CURRENT_DETAIL_PRODUCT = null;
+var CURRENT_DETAIL_QTY = 1;
+
+INIT.detail = function(opt){
+  opt = opt || {};
+  var id = opt.id || 1;
+  var p = PRODUK.filter(function(x){ return x.id == id; })[0] || PRODUK[0];
+  CURRENT_DETAIL_PRODUCT = p;
+  CURRENT_DETAIL_QTY = 1;
+
+  $('#detailBreadcrumbKat').text(KAT[p.kat] || p.kat);
+  $('#detailBreadcrumbNama').text(p.nama);
+  $('#btnBackToKatalog').off('click').on('click', function(e){
+    e.preventDefault();
+    muat('katalog');
+  });
+
+  $('#detailImg').attr('src', p.img || '').attr('alt', p.nama);
+  var isRental = p.tipe === 'rental';
+  if (isRental){
+    $('#detailBadgeType').attr('class', 'px-3 py-1 rounded-full font-label-technical text-label-technical font-bold uppercase tracking-wider shadow-sm bg-inverse-surface text-white').text('SIAP RENTAL');
+    $('#detailBadgeGrade').text('TERSEDIA ' + p.unit + ' UNIT');
+    $('#detailPriceLabel').text('Tarif Sewa Harian');
+    $('#detailHarga').text(rp(p.harga) + ' / hari');
+    $('#detailHargaCoret').addClass('hidden');
+    $('#detailHematBadge').addClass('hidden');
+    $('#detailRentalUnitBadge').removeClass('hidden').text('Min. ' + (p.minHari || 1) + ' Hari Sewa');
+    $('#detailPriceSubtext').text('Penyewaan higienis dan terstandarisasi. Uang jaminan deposit aman & refundable.');
+    $('#btnBuyNowIcon').text('event');
+    $('#btnBuyNowText').text('Sewa Sekarang');
+  } else {
+    $('#detailBadgeType').attr('class', 'px-3 py-1 rounded-full font-label-technical text-label-technical font-bold uppercase tracking-wider shadow-sm bg-primary-fixed text-on-primary-fixed').text('PRELOVED');
+    $('#detailBadgeGrade').text('GRADE ' + p.grade + ' (' + p.persen + '%)');
+    $('#detailPriceLabel').text('Harga Preloved (Beli Putus)');
+    $('#detailHarga').text(rp(p.harga));
+    if (p.coret && p.coret > p.harga){
+      $('#detailHargaCoret').removeClass('hidden').text(rp(p.coret));
+      var hemat = Math.round((1 - p.harga / p.coret) * 100);
+      $('#detailHematBadge').removeClass('hidden').text('Hemat ' + hemat + '%');
+    } else {
+      $('#detailHargaCoret').addClass('hidden');
+      $('#detailHematBadge').addClass('hidden');
+    }
+    $('#detailRentalUnitBadge').addClass('hidden');
+    $('#detailPriceSubtext').text('Garansi fisik 100% uang kembali jika kondisi tidak sesuai deskripsi kurasi tim.');
+    $('#btnBuyNowIcon').text('shopping_bag');
+    $('#btnBuyNowText').text('Beli Sekarang');
+  }
+
+  $('#detailKota').text(p.kota + ' (' + p.wil + ')');
+  $('#detailRatingText').text(p.rating ? p.rating.toFixed(1) : '4.8');
+  $('#detailUlasanText').text('(' + (p.ulasan || 15) + ' ulasan)');
+  $('#detailKategoriTag').text(KAT[p.kat] || p.kat);
+  $('#detailUnitTersedia').text('Tersedia ' + (p.unit || 1) + ' Unit Siap Kirim');
+  $('#detailNama').text(p.nama);
+  $('#detailDesc').text(p.desc + '. Perlengkapan outdoor ini telah melalui proses inspeksi kelayakan fisik menyeluruh dari RimbaLestari Outdoor untuk memastikan kebersihan, fungsi resleting/zipper, jahitan seam sealing, dan keamanan pengguna saat berpetualang.');
+
+  $('#specGrade').text(p.grade || 'A');
+  $('#specPersen').text((p.persen || 95) + '% Mulus');
+  $('#specKota').text(p.kota);
+  $('#specTipe').text(isRental ? 'Rental Berjangka' : 'Preloved Putus');
+  $('#specSewa').text((p.sewa || 50) + 'x Transaksi');
+
+  function updateDetailQty(n){
+    CURRENT_DETAIL_QTY = Math.max(1, Math.min(p.unit || 9, n));
+    $('#displayQty').text(CURRENT_DETAIL_QTY);
+    var sub = p.harga * CURRENT_DETAIL_QTY;
+    $('#detailSubtotalValue').text(rp(sub) + (isRental ? ' / hari' : ''));
+  }
+  updateDetailQty(1);
+
+  $('#btnQtyMinus').off('click').on('click', function(){
+    updateDetailQty(CURRENT_DETAIL_QTY - 1);
+  });
+  $('#btnQtyPlus').off('click').on('click', function(){
+    updateDetailQty(CURRENT_DETAIL_QTY + 1);
+  });
+
+  $('#detailFavBtn').off('click').on('click', function(){
+    var s = $(this).find('span');
+    s.css('color', s.css('color') === 'rgb(186, 26, 26)' ? '' : '#ba1a1a');
+    toast(s.css('color') ? 'Disimpan ke daftar favorit' : 'Dihapus dari favorit');
+  });
+
+  function tambahKeKeranjang(qty){
+    var found = null;
+    for (var i = 0; i < CART_ITEMS.length; i++){
+      if (CART_ITEMS[i].id === p.id){
+        found = CART_ITEMS[i];
+        break;
+      }
+    }
+    if (found){
+      found.qty = (Number(found.qty) || 1) + qty;
+      found.checked = true;
+    } else {
+      CART_ITEMS.push({
+        id: p.id,
+        nama: p.nama,
+        desc: p.desc,
+        tipe: p.tipe,
+        kat: p.kat,
+        kota: p.kota,
+        wil: p.wil,
+        img: p.img,
+        harga: p.harga,
+        coret: p.coret,
+        grade: p.grade,
+        persen: p.persen,
+        unit: p.unit,
+        minHari: p.minHari || 1,
+        qty: qty,
+        checked: true
+      });
+    }
+    simpanCart();
+  }
+
+  // Opsi 1: Tambahkan ke Keranjang (keranjang baru terisi, tidak langsung lompat)
+  $('#btnAddToCartDetail').off('click').on('click', function(){
+    tambahKeKeranjang(CURRENT_DETAIL_QTY);
+    toast('✓ ' + p.nama + ' (' + CURRENT_DETAIL_QTY + ' unit) berhasil ditambahkan ke keranjang!');
+  });
+
+  // Opsi 2: Beli Sekarang (tambahkan ke keranjang dan langsung diarahkan)
+  $('#btnBuyNowDetail').off('click').on('click', function(){
+    tambahKeKeranjang(CURRENT_DETAIL_QTY);
+    toast('Menuju keranjang untuk menyelesaikan pesanan...');
+    muat('keranjang');
+  });
+};
+
+/* ---------- Halaman Keranjang & Form Sewa (item 2.c - Dinamis) ---------- */
 function stripRender(m, k){
   var C = window.STRIPCLS, H = ['MIN','SEN','SEL','RAB','KAM','JUM','SAB'], s0 = m ? pd(m) : new Date(), html = '';
+  if (!C) return;
   for (var i = -2; i < 5; i++){
     var d = addDays(s0, i), key = ymd(d), t = 'normal';
     if (m && k && k >= m){ if (key === m) t = 'start'; else if (key === k) t = 'end'; else if (key > m && key < k) t = 'mid'; }
@@ -239,25 +397,74 @@ function stripRender(m, k){
   $('#strip').html(html);
 }
 function bentrokTgl(m, k){ var h = null; $.each(BOOKED, function(i, b){ if (m <= b[1] && b[0] <= k){ h = b; return false; } }); return h; }
+
 function hitung(){
-  var pre = 0, n = 0;
-  $('input[data-harga]').filter(function(){ return $(this).data('item') < 3 && this.checked; }).each(function(){ var i = $(this).data('item'); pre += $(this).data('harga') * (+$('[data-qty=' + i + ']').text() || 1); n++; });
-  var rOn = $('input[data-item=3]').is(':checked'), m = $('#mulai').val(), k = $('#kembali').val();
-  var d = (m && k && k > m) ? selisih(m, k) : 0, sewa = rOn ? d * 45000 : 0, dep = rOn ? 200000 : 0;
-  var asu = (rOn && $('#insuranceToggle').is(':checked')) ? 15000 : 0, any = n > 0 || rOn, ong = any ? 45000 : 0, disc = any ? promoDisc : 0;
-  var total = Math.max(0, pre + sewa + dep + asu + ong - disc);
-  $('#lblPre').text('Total Harga Preloved (' + n + ' Item)'); $('#sumPre').text(rp(pre));
-  $('#lblSewa').text('Total Sewa Alat (1 Tenda / ' + d + ' Hari)'); $('#sumSewa').text(rp(sewa)); $('#subSewa').text(rp(d * 45000));
-  $('#subLbl').text('Subtotal Biaya Sewa (Rp 45.000 × ' + d + ' Hari):'); $('#durLbl').text('Durasi: ' + d + ' Hari');
-  $('#lblMulai').text(m ? fmtTgl(m) : '-'); $('#lblKembali').text(k ? fmtTgl(k) : '-');
+  if (!CART_ITEMS.length){
+    $('#lblPre').text('Total Harga Preloved (0 Item)');
+    $('#sumPre').text(rp(0));
+    $('#lblSewa').text('Total Sewa Alat (0 Item / 0 Hari)');
+    $('#sumSewa').text(rp(0));
+    $('#subSewa').text(rp(0));
+    $('#subLbl').text('Subtotal Biaya Sewa (Rp 0 × 0 Hari):');
+    $('#durLbl').text('Durasi: 0 Hari');
+    $('#lblMulai').text('-');
+    $('#lblKembali').text('-');
+    $('#sumOngkir').text(rp(0));
+    $('#sumDisc').text('-' + rp(0));
+    $('#grandTotalDisplay').text(rp(0));
+    $('#konten span').filter(function(){ return $.trim($(this).text()) === 'Deposit Refundable Rental'; }).parent().next('span').text(rp(0));
+    return {preCount:0, rentCount:0, any:false, total:0};
+  }
+
+  var preTotal = 0, preCount = 0;
+  var rentDailyTotal = 0, rentCount = 0;
+
+  $('input[data-item]:checked').each(function(){
+    var itemId = $(this).data('item');
+    var tipe = $(this).data('tipe');
+    var harga = +$(this).data('harga') || 0;
+    var qty = +(+$('[data-qty=' + itemId + ']').text() || 1);
+    if (tipe === 'rental'){
+      rentDailyTotal += harga * qty;
+      rentCount += qty;
+    } else {
+      preTotal += harga * qty;
+      preCount += qty;
+    }
+  });
+
+  var m = $('#mulai').val(), k = $('#kembali').val();
+  var d = (m && k && k > m) ? selisih(m, k) : 0;
+  var sewa = (rentCount > 0 && d > 0) ? (rentDailyTotal * d) : 0;
+  var dep = rentCount > 0 ? 200000 : 0;
+  var asu = (rentCount > 0 && $('#insuranceToggle').is(':checked')) ? 15000 : 0;
+  var any = preCount > 0 || rentCount > 0;
+  var ong = any ? (preCount + rentCount) * 15000 : 0;
+  var disc = any ? promoDisc : 0;
+  var total = any ? Math.max(0, preTotal + sewa + dep + asu + ong - disc) : 0;
+
+  $('#lblPre').text('Total Harga Preloved (' + preCount + ' Item)');
+  $('#sumPre').text(rp(preTotal));
+  $('#lblSewa').text('Total Sewa Alat (' + rentCount + ' Item / ' + d + ' Hari)');
+  $('#sumSewa').text(rp(sewa));
+  $('#subSewa').text(rp(sewa));
+  $('#subLbl').text('Subtotal Biaya Sewa (' + rp(rentDailyTotal) + ' × ' + d + ' Hari):');
+  $('#durLbl').text('Durasi: ' + d + ' Hari');
+  $('#lblMulai').text(m ? fmtTgl(m) : '-');
+  $('#lblKembali').text(k ? fmtTgl(k) : '-');
   $('#konten span').filter(function(){ return $.trim($(this).text()) === 'Deposit Refundable Rental'; }).parent().next('span').text(rp(dep));
-  $('#sumDisc').text('-' + rp(disc)); $('#insuranceRow').css('opacity', asu ? 1 : .35);
+  $('#sumOngkir').text(rp(ong));
+  $('#sumDisc').text('-' + rp(disc));
+  $('#insuranceRow').css('opacity', asu ? 1 : 0.35);
   $('#grandTotalDisplay').text(rp(total));
   stripRender(m, (k && k > m) ? k : '');
-  return {n:n, rOn:rOn, total:total};
+
+  return {preCount:preCount, rentCount:rentCount, any:any, total:total};
 }
+
 function cekForm(){
-  var ok = true, v = function(id){ return $.trim($('#' + id).val()); }, rOn = $('input[data-item=3]').is(':checked');
+  var ok = true, v = function(id){ return $.trim($('#' + id).val()); };
+  var rOn = $('input[data-item][data-tipe=rental]:checked').length > 0;
   ok = err('nama', !v('nama') ? 'Nama penerima wajib diisi.' : (v('nama').length < 3 ? 'Nama minimal 3 karakter.' : (/\d/.test(v('nama')) ? 'Nama tidak boleh berisi angka.' : ''))) && ok;
   ok = err('telp', !v('telp') ? 'Nomor WhatsApp wajib diisi.' : (!/^(08|\+628)\d{8,11}$/.test(v('telp')) ? 'Gunakan format 08xxxxxxxxxx (10-13 digit).' : '')) && ok;
   ok = err('alamat', !v('alamat') ? 'Alamat wajib diisi.' : (v('alamat').length < 10 ? 'Alamat minimal 10 karakter.' : '')) && ok;
@@ -279,11 +486,15 @@ function cekForm(){
   var s = $('#setuju').is(':checked'); $('[data-err=setuju]').text(s ? '' : 'Centang persetujuan untuk melanjutkan.'); ok = s && ok;
   return ok;
 }
+
 INIT.keranjang = function(){
   var now = new Date();
-  $('#mulai').attr('min', hariIni()).val('2026-11-12'); $('#kembali').attr('min', hariIni()).val('2026-11-15');
-  
-  // Poin 2: Data Penerima & Pembayaran otomatis terisi sama seperti di profil
+  var mDefault = $('#mulai').val() || '2026-11-12';
+  var kDefault = $('#kembali').val() || '2026-11-15';
+  $('#mulai').attr('min', hariIni()).val(mDefault);
+  $('#kembali').attr('min', hariIni()).val(kDefault);
+
+  // Data Penerima & Pembayaran otomatis terisi sama seperti di profil
   function isiFormDariProfil(){
     $('#nama').val(PROFIL.nama);
     $('#telp').val(PROFIL.telp);
@@ -296,48 +507,234 @@ INIT.keranjang = function(){
     }
   }
   isiFormDariProfil();
-  hitung();
 
-  $('#btnSyncProfil').on('click', function(e){
+  function renderKeranjangItems(){
+    if (!CART_ITEMS.length){
+      $('#cartEmptyState').removeClass('hidden');
+      $('#cartActiveState').addClass('hidden');
+      $('#grandTotalDisplay').text('Rp 0');
+      simpanCart();
+      return;
+    }
+    $('#cartEmptyState').addClass('hidden');
+    $('#cartActiveState').removeClass('hidden');
+    $('#cartTotalItemsLabel').text('Pilih Semua (' + CART_ITEMS.length + ' Barang)');
+
+    var preloved = CART_ITEMS.filter(function(x){ return x.tipe !== 'rental'; });
+    var rental = CART_ITEMS.filter(function(x){ return x.tipe === 'rental'; });
+
+    if (preloved.length){
+      $('#containerPreloved').removeClass('hidden');
+      $('#badgePrelovedCount').text(preloved.length + ' Item');
+      var htmlPre = preloved.map(function(item){
+        return '<div data-card="' + item.id + '" class="flex flex-col sm:flex-row gap-4 p-4 rounded-xl bg-surface-container-low transition-all hover:bg-surface-container">' +
+          '<div class="flex items-start gap-3">' +
+          '<input data-item="' + item.id + '" data-tipe="preloved" data-harga="' + item.harga + '" ' + (item.checked !== false ? 'checked' : '') + ' class="w-5 h-5 mt-2 rounded accent-primary cursor-pointer item-checkbox" type="checkbox"/>' +
+          '<div class="relative w-28 h-28 sm:w-32 sm:h-32 shrink-0 rounded-lg overflow-hidden bg-surface-container-high cursor-pointer" data-detail="' + item.id + '">' +
+          '<img class="w-full h-full object-cover" src="' + (item.img || '') + '" alt="' + item.nama + '"/>' +
+          '<span class="absolute top-2 left-2 bg-on-background/85 text-surface font-label-technical text-label-technical px-2 py-0.5 rounded-full">PRELOVED</span>' +
+          '</div>' +
+          '</div>' +
+          '<div class="flex-1 flex flex-col justify-between">' +
+          '<div>' +
+          '<div class="flex items-center justify-between gap-2">' +
+          '<div class="flex items-center gap-1.5">' +
+          '<span class="material-symbols-outlined text-secondary text-[16px]">store</span>' +
+          '<span class="font-label-md text-label-md text-on-surface-variant font-semibold">' + item.kota + '</span>' +
+          '<span class="font-label-technical text-label-technical text-outline">• Preloved</span>' +
+          '</div>' +
+          '<span class="font-label-technical text-label-technical px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-bold">Grade ' + (item.grade || 'A') + '</span>' +
+          '</div>' +
+          '<h2 class="font-title-md text-title-md text-on-surface font-bold mt-1 cursor-pointer hover:text-primary transition-colors" data-detail="' + item.id + '">' + item.nama + '</h2>' +
+          '<div class="flex items-center gap-2 mt-1">' +
+          '<span class="material-symbols-outlined text-primary text-[16px]" style="font-variation-settings: \'FILL\' 1;">verified</span>' +
+          '<span class="font-body-sm text-body-sm text-primary font-semibold">Kondisi Terverifikasi Tim Rimba</span>' +
+          '</div>' +
+          '</div>' +
+          '<div class="flex items-center justify-between mt-4 pt-3 bg-surface-container-lowest/60 p-2 rounded-lg">' +
+          '<div class="font-headline-sm text-headline-sm text-on-surface font-bold">' + rp(item.harga) + '</div>' +
+          '<div class="flex items-center gap-3">' +
+          '<button class="p-1.5 text-on-surface-variant hover:text-error transition-colors" title="Hapus Item" data-act="del" data-item="' + item.id + '"><span class="material-symbols-outlined text-[20px]">delete</span></button>' +
+          '<div class="flex items-center bg-surface-container-high rounded-lg p-0.5">' +
+          '<button class="w-7 h-7 flex items-center justify-center font-bold text-on-surface hover:bg-surface-container-lowest rounded" data-act="min" data-item="' + item.id + '">-</button>' +
+          '<span class="w-8 text-center font-label-md text-label-md font-bold" data-qty="' + item.id + '">' + (item.qty || 1) + '</span>' +
+          '<button class="w-7 h-7 flex items-center justify-center font-bold text-on-surface hover:bg-surface-container-lowest rounded" data-act="plus" data-item="' + item.id + '">+</button>' +
+          '</div>' +
+          '</div>' +
+          '</div>' +
+          '</div>' +
+          '</div>';
+      }).join('');
+      $('#listPrelovedItems').html(htmlPre);
+    } else {
+      $('#containerPreloved').addClass('hidden');
+      $('#listPrelovedItems').empty();
+    }
+
+    if (rental.length){
+      $('#containerRental').removeClass('hidden');
+      $('#badgeRentalCount').text(rental.length + ' Item Rental');
+      var htmlRent = rental.map(function(item){
+        return '<div data-card="' + item.id + '" class="flex flex-col gap-4 p-4 rounded-xl bg-surface-container-low">' +
+          '<div class="flex flex-col sm:flex-row gap-4">' +
+          '<div class="flex items-start gap-3">' +
+          '<input data-item="' + item.id + '" data-tipe="rental" data-harga="' + item.harga + '" ' + (item.checked !== false ? 'checked' : '') + ' class="w-5 h-5 mt-2 rounded accent-primary cursor-pointer item-checkbox" type="checkbox"/>' +
+          '<div class="relative w-28 h-28 sm:w-32 sm:h-32 shrink-0 rounded-lg overflow-hidden bg-surface-container-high cursor-pointer" data-detail="' + item.id + '">' +
+          '<img class="w-full h-full object-cover" src="' + (item.img || '') + '" alt="' + item.nama + '"/>' +
+          '<span class="absolute top-2 left-2 bg-primary text-on-primary font-label-technical text-label-technical px-2 py-0.5 rounded-full font-bold">RENTAL</span>' +
+          '</div>' +
+          '</div>' +
+          '<div class="flex-1 flex flex-col justify-between">' +
+          '<div>' +
+          '<div class="flex items-center justify-between gap-2">' +
+          '<div class="flex items-center gap-1.5">' +
+          '<span class="material-symbols-outlined text-secondary text-[16px]">verified</span>' +
+          '<span class="font-label-md text-label-md text-on-surface-variant font-semibold">Rimba Rental Official</span>' +
+          '<span class="font-label-technical text-label-technical text-outline">• ' + item.kota + '</span>' +
+          '</div>' +
+          '<span class="font-label-technical text-label-technical px-2 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed font-bold">Grade ' + (item.grade || 'A') + ' (Siap Pakai)</span>' +
+          '</div>' +
+          '<h2 class="font-title-md text-title-md text-on-surface font-bold mt-1 cursor-pointer hover:text-primary transition-colors" data-detail="' + item.id + '">' + item.nama + '</h2>' +
+          '<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">' + item.desc + '</p>' +
+          '</div>' +
+          '<div class="flex items-center justify-between mt-3 pt-2">' +
+          '<div class="flex items-baseline gap-2">' +
+          '<span class="font-label-lg text-label-lg text-primary font-bold">' + rp(item.harga) + '</span>' +
+          '<span class="font-body-sm text-body-sm text-on-surface-variant">/ hari</span>' +
+          '</div>' +
+          '<div class="flex items-center gap-3">' +
+          '<button class="p-1.5 text-on-surface-variant hover:text-error transition-colors" title="Hapus Item" data-act="del" data-item="' + item.id + '"><span class="material-symbols-outlined text-[20px]">delete</span></button>' +
+          '<div class="flex items-center bg-surface-container-high rounded-lg p-0.5">' +
+          '<button class="w-7 h-7 flex items-center justify-center font-bold text-on-surface hover:bg-surface-container-lowest rounded" data-act="min" data-item="' + item.id + '">-</button>' +
+          '<span class="w-8 text-center font-label-md text-label-md font-bold" data-qty="' + item.id + '">' + (item.qty || 1) + '</span>' +
+          '<button class="w-7 h-7 flex items-center justify-center font-bold text-on-surface hover:bg-surface-container-lowest rounded" data-act="plus" data-item="' + item.id + '">+</button>' +
+          '</div>' +
+          '</div>' +
+          '</div>' +
+          '</div>' +
+          '</div>' +
+          '</div>';
+      }).join('');
+      $('#listRentalItems').html(htmlRent);
+    } else {
+      $('#containerRental').addClass('hidden');
+      $('#listRentalItems').empty();
+    }
+
+    simpanCart();
+    hitung();
+  }
+
+  renderKeranjangItems();
+
+  $('#btnSyncProfil').off('click').on('click', function(e){
     e.preventDefault();
     isiFormDariProfil();
     toast('Data formulir berhasil disinkronkan kembali dari profil');
     hitung();
   });
-  $('#btnEditProfilKeranjang').on('click', function(e){
+  $('#btnEditProfilKeranjang').off('click').on('click', function(e){
     e.preventDefault();
     muat('profil');
   });
 
-  $('#mulai, #kembali').on('change', function(){ hitung(); });
+  $('#mulai, #kembali').off('change').on('change', function(){ hitung(); });
   var touched = {};
-  $('#formCheckout input, #formCheckout select').on('blur change', function(){
+  $('#formCheckout input, #formCheckout select').off('blur change').on('blur change', function(){
     if (this.id === 'setuju') return; touched[this.id] = true; cekForm();
     $('[data-err]').each(function(){ var id = $(this).attr('data-err'); if (!touched[id] && id !== 'setuju'){ $(this).text(''); $('#' + id).removeClass('is-invalid'); } });
   });
-  $('#konten').off('.krj').on('change.krj', 'input[data-item], #insuranceToggle', hitung)
-    .on('click.krj', '[data-act]', function(){
-      var a = $(this).data('act'), i = $(this).data('item');
-      if (a === 'del'){ $('[data-card=' + i + ']').remove(); hitung(); toast('Barang dihapus dari keranjang'); }
-      else { var q = $('[data-qty=' + i + ']'), v = (+q.text() || 1) + (a === 'plus' ? 1 : -1); q.text(Math.max(1, Math.min(9, v))); hitung(); }
+
+  $('#konten').off('.krj')
+    .on('change.krj', 'input[data-item]', function(){
+      var id = $(this).data('item');
+      var chk = this.checked;
+      for (var i = 0; i < CART_ITEMS.length; i++){
+        if (CART_ITEMS[i].id == id){
+          CART_ITEMS[i].checked = chk;
+          break;
+        }
+      }
+      simpanCart();
+      hitung();
+    })
+    .on('change.krj', '#insuranceToggle', hitung)
+    .on('click.krj', '[data-act]', function(e){
+      e.stopPropagation();
+      var a = $(this).data('act'), id = $(this).data('item');
+      if (a === 'del'){
+        CART_ITEMS = CART_ITEMS.filter(function(x){ return x.id != id; });
+        toast('Barang dihapus dari keranjang');
+        renderKeranjangItems();
+      } else {
+        var itm = null;
+        for (var i = 0; i < CART_ITEMS.length; i++){
+          if (CART_ITEMS[i].id == id){ itm = CART_ITEMS[i]; break; }
+        }
+        if (itm){
+          var curQ = Number(itm.qty) || 1;
+          var newQ = a === 'plus' ? (curQ + 1) : (curQ - 1);
+          itm.qty = Math.max(1, Math.min(itm.unit || 9, newQ));
+          $('[data-qty=' + id + ']').text(itm.qty);
+          simpanCart();
+          hitung();
+        }
+      }
     });
-  $('#selectAllCheckbox').on('change', function(){ $('input[data-item]').prop('checked', this.checked); hitung(); });
-  $('#deleteSelectedBtn').on('click', function(){ $('input[data-item]:checked').each(function(){ $('[data-card=' + $(this).data('item') + ']').remove(); }); hitung(); });
-  $('#applyPromoBtn').on('click', function(){
+
+  $('#selectAllCheckbox').off('change').on('change', function(){
+    var chk = this.checked;
+    $('input[data-item]').prop('checked', chk);
+    CART_ITEMS.forEach(function(x){ x.checked = chk; });
+    simpanCart();
+    hitung();
+  });
+
+  $('#deleteSelectedBtn').off('click').on('click', function(e){
+    e.preventDefault();
+    var checkedIds = [];
+    $('input[data-item]:checked').each(function(){ checkedIds.push($(this).data('item')); });
+    if (!checkedIds.length){
+      toast('Tidak ada barang yang dipilih');
+      return;
+    }
+    CART_ITEMS = CART_ITEMS.filter(function(x){ return checkedIds.indexOf(x.id) === -1; });
+    toast('Barang terpilih berhasil dihapus dari keranjang');
+    renderKeranjangItems();
+  });
+
+  $('#applyPromoBtn').off('click').on('click', function(e){
+    e.preventDefault();
     var val = $.trim($('#promoInput').val()).toUpperCase(), f = $('#promoFeedback'), base = 'flex items-center gap-1.5 font-label-md text-label-md font-semibold pt-1 ';
     if (!val){ promoDisc = 0; f.attr('class', base + 'text-error').text('Silakan masukkan kode voucher'); }
     else if (PROMO[val]){ promoDisc = PROMO[val]; f.attr('class', base + 'text-primary').text('Kupon ' + val + ' aktif (-' + rp(promoDisc) + ')'); }
     else { promoDisc = 0; f.attr('class', base + 'text-error').text('Kode promo tidak valid'); }
     hitung();
   });
-  $('#checkoutActionBtn').on('click', function(){
+
+  $('#checkoutActionBtn').off('click').on('click', function(e){
+    e.preventDefault();
     var st = hitung();
-    if (!st.n && !st.rOn){ toast('Pilih minimal satu barang untuk checkout'); return; }
-    if (!cekForm()){ toast('Masih ada isian yang salah, periksa pesan merah'); $('#formCheckout')[0].scrollIntoView({behavior:'smooth', block:'center'}); return; }
+    if (!st.any || (!st.preCount && !st.rentCount)){
+      toast('Pilih minimal satu barang untuk melanjutkan checkout');
+      return;
+    }
+    if (!cekForm()){
+      toast('Masih ada isian yang salah, periksa pesan merah');
+      $('#formCheckout')[0].scrollIntoView({behavior:'smooth', block:'center'});
+      return;
+    }
     var id = 'RBA-' + Math.floor(1000 + Math.random() * 9000) + '-' + $('#kota').val().slice(0, 3).toUpperCase();
     var o = modal('<div class="flex items-center gap-2 text-primary"><span class="material-symbols-outlined text-[32px]">check_circle</span><h3 class="font-headline-sm text-headline-sm">Pesanan berhasil dibuat</h3></div>' +
       '<p class="text-on-surface-variant">ID pesanan <b>' + id + '</b><br>Penerima: ' + $.trim($('#nama').val()) + ' (' + $('#kota').val() + ')<br>Metode: ' + $('#metode').val() + '<br>Total tagihan: <b>' + rp(st.total) + '</b><br>Status: Menunggu Pembayaran</p>' +
       '<div class="flex gap-2"><button data-close class="flex-1 bg-surface-container rounded-lg py-2 font-bold">Tutup</button><button data-close data-r class="flex-1 bg-primary text-on-primary rounded-lg py-2 font-bold">Lihat Riwayat</button></div>');
+    
+    // Hapus barang yang berhasil di-checkout dari keranjang
+    var checkedIds = [];
+    $('input[data-item]:checked').each(function(){ checkedIds.push($(this).data('item')); });
+    CART_ITEMS = CART_ITEMS.filter(function(x){ return checkedIds.indexOf(x.id) === -1; });
+    simpanCart();
+
     o.on('click', '[data-r]', function(){ muat('riwayat', {tab:'bayar'}); });
   });
 };
