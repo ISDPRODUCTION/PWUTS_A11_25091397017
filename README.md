@@ -79,19 +79,4 @@ Website penjualan barang outdoor preloved dan rental alat pendakian.
    - Validasi masuk dan daftar akun baru.
    - Tombol 1-klik Masuk Akun Demo: `rian@email.com` / `Rimba1234`.
 
----
 
-## 💻 Cara Menjalankan
-
-1. Tempatkan folder proyek di lingkungan server lokal:
-   - **XAMPP**: Pindahkan folder ke direktori `C:/xampp/htdocs/`, jalankan Apache melalui XAMPP Control Panel, lalu buka `http://localhost/PWUTS_A11_25091397017/` di browser.
-   - **VS Code Live Server**: Buka folder proyek di Visual Studio Code, pastikan ekstensi *Live Server* terpasang, klik kanan pada `index.html` dan pilih **Open with Live Server**.
-   - **Python Simple Server**: Buka terminal di folder proyek dan jalankan `python -m http.server 8000`, lalu akses `http://localhost:8000` di browser.
-2. **Perhatian**: Jangan membuka file `index.html` langsung dengan klik dua kali dari folder Windows Explorer (protokol `file://`), karena sistem keamanan peramban (*CORS*) akan membatasi pemuatan file Ajax (`$.load()`).
-3. Pastikan perangkat terkoneksi ke internet untuk memuat Tailwind CSS CDN, Google Fonts (*Plus Jakarta Sans*), dan ikon Material Symbols.
-
----
-
-## 📝 Catatan Tambahan
-- Proyek ini tidak menggunakan database backend server. Seluruh data produk, reservasi tanggal, akun pengguna, profil, dan keranjang belanja dikelola secara dinamis di sisi klien melalui JavaScript, `localStorage`, dan `sessionStorage`.
-- Seluruh transaksi dan pengajuan pada sistem ini merupakan simulasi interaktif yang dirancang untuk memenuhi spesifikasi Ujian Tengah Semester (UTS) Pemrograman Web.
