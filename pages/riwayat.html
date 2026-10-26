@@ -1,0 +1,372 @@
+<main class="w-full pt-28 bg-surface min-h-[calc(100vh-140px)]"><div class="flex flex-col w-full">
+<div class="max-w-7xl mx-auto w-full px-margin md:px-margin-tablet lg:px-margin-desktop py-space-md">
+<!-- Top Breadcrumb & Heading Bar -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md mb-space-lg">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-space-xs text-outline font-label-md text-label-md">
+<span>Akun Saya</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-primary font-bold">Pemesanan &amp; Riwayat Transaksi</span>
+</div>
+<div class="flex items-center gap-3 mt-1">
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Riwayat Transaksi &amp; Sewa</h1>
+<span class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-technical text-label-technical">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+            ESCROW SYSTEM AKTIF
+          </span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl">
+          Pantau batas durasi rental alat, status deposit garansi, serta pelacakan resi pembelian preloved Anda secara transparan.
+        </p>
+</div>
+<!-- Quick Action: Hubungi Support Hub -->
+<div class="flex items-center gap-space-sm shrink-0">
+<button class="flex items-center gap-2 px-space-md py-2.5 rounded-lg bg-surface-container hover:bg-surface-container-highest transition-colors font-label-lg text-label-lg text-on-surface shadow-sm">
+<span class="material-symbols-outlined text-[18px]">help_center</span>
+<span>Pusat Resolusi Deposit</span>
+</button>
+</div>
+</div>
+<!-- 1. Tab Status Navigasi -->
+<div class="w-full bg-surface-container-lowest p-1.5 rounded-xl shadow-sm mb-space-md overflow-x-auto">
+<div class="flex items-center gap-1.5 min-w-max">
+<button class="flex items-center gap-2 px-space-md py-2 rounded-lg bg-surface-container font-label-lg text-label-lg text-on-surface hover:bg-surface-container-high transition-colors">
+<span>Semua Transaksi</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-technical text-label-technical font-bold">8</span>
+</button>
+<button class="flex items-center gap-2 px-space-md py-2 rounded-lg text-on-surface-variant hover:bg-surface-container transition-colors font-label-lg text-label-lg">
+<span>Menunggu Pembayaran</span>
+<span class="px-2 py-0.5 rounded-full bg-error-container text-on-error-container font-label-technical text-label-technical font-bold">1</span>
+</button>
+<button class="flex items-center gap-2 px-space-md py-2 rounded-lg bg-secondary-container text-on-secondary-container font-label-lg text-label-lg font-bold shadow-sm">
+<span class="material-symbols-outlined text-[16px]">mountain_flag</span>
+<span>Sedang Disewa / Aktif</span>
+<span class="px-2 py-0.5 rounded-full bg-primary text-on-primary font-label-technical text-label-technical">2</span>
+</button>
+<button class="flex items-center gap-2 px-space-md py-2 rounded-lg text-on-surface-variant hover:bg-surface-container transition-colors font-label-lg text-label-lg">
+<span>Dalam Pengiriman</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface font-label-technical text-label-technical font-bold">1</span>
+</button>
+<button class="flex items-center gap-2 px-space-md py-2 rounded-lg text-on-surface-variant hover:bg-surface-container transition-colors font-label-lg text-label-lg">
+<span>Selesai</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-technical text-label-technical font-bold">4</span>
+</button>
+<button class="flex items-center gap-2 px-space-md py-2 rounded-lg text-on-surface-variant hover:bg-surface-container transition-colors font-label-lg text-label-lg">
+<span>Dibatalkan</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-low text-outline font-label-technical text-label-technical font-bold">0</span>
+</button>
+</div>
+</div>
+<!-- 2. Filter Bar Tambahan -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-space-sm bg-surface-container-lowest p-space-md rounded-xl shadow-sm mb-space-lg">
+<!-- Search Input -->
+<div class="md:col-span-5 flex items-center bg-surface-container-low px-space-md py-2 rounded-lg focus-within:ring-2 focus-within:ring-primary/20">
+<span class="material-symbols-outlined text-outline text-[20px] mr-2">search</span>
+<input class="w-full bg-transparent font-body-md text-body-md text-on-surface placeholder:text-outline outline-none" placeholder="Cari No. Resi, ID Sewa, atau Nama Gear..." type="text"/>
+</div>
+<!-- Type Dropdown -->
+<div class="md:col-span-3 flex items-center bg-surface-container-low px-space-md py-2 rounded-lg">
+<span class="material-symbols-outlined text-outline text-[18px] mr-2">category</span>
+<select class="w-full bg-transparent font-label-lg text-label-lg text-on-surface outline-none cursor-pointer">
+<option value="all">Semua Tipe Transaksi</option>
+<option value="rental">Hanya Rental Alat</option>
+<option value="preloved">Hanya Beli Preloved</option>
+</select>
+</div>
+<!-- Calendar Range Picker -->
+<div class="md:col-span-3 flex items-center bg-surface-container-low px-space-md py-2 rounded-lg">
+<span class="material-symbols-outlined text-outline text-[18px] mr-2">calendar_month</span>
+<span class="font-label-md text-label-md text-on-surface truncate">01 Nov 2025 - 30 Nov 2025</span>
+</div>
+<!-- Reset / Filter Button -->
+<div class="md:col-span-1 flex items-center justify-end">
+<button class="w-full h-full flex items-center justify-center p-2 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface transition-colors" title="Reset Filter">
+<span class="material-symbols-outlined text-[20px]">tune</span>
+</button>
+</div>
+</div>
+<!-- Main Content Grid: 8 Columns List + 4 Columns User Stats -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
+<!-- Left Rail: Daftar Kartu Transaksi (8 Cols) -->
+<div class="lg:col-span-8 flex flex-col gap-space-md">
+<!-- KARTU 1: SEDANG DISEWA - H-2 PENGEMBALIAN -->
+<div data-card data-status="aktif" data-tipe="rental" class="flex flex-col bg-surface-container-lowest rounded-xl shadow-md p-space-md md:p-space-lg transition-all hover:shadow-lg">
+<!-- Card Header & Meta -->
+<div class="flex flex-wrap items-center justify-between gap-space-sm pb-space-sm">
+<div class="flex items-center gap-space-sm">
+<span class="px-2.5 py-1 rounded bg-secondary-container text-on-secondary-container font-label-technical text-label-technical font-bold uppercase tracking-wider flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[14px]">event_repeat</span>
+                Sedang Disewa • H-2 Pengembalian
+              </span>
+<span class="font-label-technical text-label-technical text-outline">ID: #RMB-RENT-89210</span>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant font-label-md text-label-md">
+<span class="material-symbols-outlined text-[16px] text-primary">verified</span>
+<span>Alpine Gear Bogor</span>
+</div>
+</div>
+<!-- Item Body Section -->
+<div class="flex flex-col sm:flex-row gap-space-md py-space-sm">
+<div class="relative w-full sm:w-36 h-36 rounded-lg overflow-hidden shrink-0 bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="High-altitude 4-person geodesic dome camping tent in dark forest green pitched on a grassy plateau with mist and pine trees in the background, sharp technical details, outdoor gear aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3EV1LVsYWPNdUExrBWSGgUwwMTNPESG2uRcBJBS81bVGSDHNps_107SOdMi6IHo509DMhwmIPctIBdfrMbWaXK5UJvvsdIdXRErKmZvE4IEnsswE_4uzwBUUkOytgjd_qvpfDbZ7Z6N5lEjgW5gbuImF8IbZidyXTBD9OT8ArpgxaA0UZB91dIKgfZwPB3V2w9xjJqmJJtHyDBjizObcIZSfj_T2-GPwWUoxC6FQNNzVOOb2u489d"/>
+<span class="absolute bottom-2 left-2 px-2 py-0.5 rounded bg-surface-container-lowest/90 font-label-technical text-label-technical text-on-surface font-bold backdrop-blur-sm">Grade A+</span>
+</div>
+<div class="flex flex-col flex-1 justify-between gap-space-xs">
+<div>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded bg-surface-container font-label-technical text-label-technical text-on-surface-variant font-semibold">PAKET KELOMPOK</span>
+<span class="font-label-md text-label-md text-outline">Durasi: 4 Hari</span>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface mt-1">Tenda Dome Eiger Guardian 4P + Set Matras Foam Foil (2 pcs)</h2>
+<div class="flex flex-wrap items-center gap-y-1 gap-x-space-md mt-2 text-on-surface-variant font-body-sm text-body-sm">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px] text-primary">date_range</span> 08 Nov - 12 Nov 2025</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px] text-primary">location_on</span> Drop-off: Hub Baranangsiang</span>
+</div>
+</div>
+<!-- Deposit & Pricing Bar Highlight -->
+<div class="flex flex-wrap items-center justify-between gap-space-sm p-space-sm rounded-lg bg-surface-container-low mt-2">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined text-[18px]">lock</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-technical text-label-technical uppercase text-outline">Deposit Jaminan Escrow</span>
+<span class="font-label-lg text-label-lg font-bold text-on-surface">Rp 200.000 <span class="text-primary font-normal text-body-sm">(Aman Ditahan)</span></span>
+</div>
+</div>
+<div class="text-right">
+<span class="font-label-technical text-label-technical uppercase text-outline">Total Sewa</span>
+<p class="font-headline-sm text-headline-sm text-on-surface font-extrabold">Rp 240.000</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="flex flex-wrap items-center justify-between gap-space-sm pt-space-sm">
+<div class="flex items-center gap-2 text-outline font-label-md text-label-md">
+<span class="material-symbols-outlined text-[16px] text-primary">info</span>
+<span>Kembalikan sebelum 12 Nov, pukul 18:00 WIB</span>
+</div>
+<div class="flex items-center gap-space-xs flex-wrap">
+<button class="flex items-center gap-1 px-3 py-2 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-lg text-label-lg transition-colors">
+<span class="material-symbols-outlined text-[18px]">chat</span>
+<span>Chat Vendor</span>
+</button>
+<button class="flex items-center gap-1 px-3 py-2 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-lg text-label-lg transition-colors">
+<span class="material-symbols-outlined text-[18px]">update</span>
+<span>Perpanjang Masa Sewa</span>
+</button>
+<button class="flex items-center gap-1 px-4 py-2 rounded-lg bg-primary hover:bg-primary-container text-on-primary font-label-lg text-label-lg font-bold shadow-sm transition-all">
+<span class="material-symbols-outlined text-[18px]">assignment_return</span>
+<span>Ajukan Pengembalian / Drop-off</span>
+</button>
+</div>
+</div>
+</div>
+<!-- KARTU 2: MENUNGGU PEMBAYARAN -->
+<div data-card data-status="bayar" data-tipe="preloved" class="flex flex-col bg-surface-container-lowest rounded-xl shadow-md p-space-md md:p-space-lg transition-all hover:shadow-lg">
+<!-- Card Header & Meta -->
+<div class="flex flex-wrap items-center justify-between gap-space-sm pb-space-sm">
+<div class="flex items-center gap-space-sm">
+<span class="px-2.5 py-1 rounded bg-surface-container-highest text-on-surface font-label-technical text-label-technical font-bold uppercase tracking-wider flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[14px]">schedule</span>
+                Menunggu Pembayaran
+              </span>
+<span class="font-label-technical text-label-technical text-outline">ID: #RMB-BUY-43901</span>
+<span class="px-2 py-0.5 rounded bg-surface-container font-label-technical text-label-technical text-on-surface-variant font-semibold">PRELOVED</span>
+</div>
+<!-- Countdown Pill -->
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-error-container text-on-error-container font-label-technical text-label-technical font-bold animate-pulse">
+<span class="material-symbols-outlined text-[14px]">timer</span>
+<span>Batas Bayar: 23:45:10</span>
+</div>
+</div>
+<!-- Item Body Section -->
+<div class="flex flex-col sm:flex-row gap-space-md py-space-sm">
+<div class="relative w-full sm:w-36 h-36 rounded-lg overflow-hidden shrink-0 bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Technical mountaineering backpack Deuter Aircontact Lite 50 plus 10 in forest pine green and graphite gray, studio lighting on crisp clean background showing ergonomic hip belt and harness" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1dDNvMhVCQZ5u-F075-39VpELdvDGUbD5OixRG-8P9E_tZbTtiyoaypc1CxCutpSHimZ3xXmAR0ccKmpsDBwMKkxwBBvlHPOuCqOi2vxdb8oMqU66EvSK_szXD8hOkwsaWozgollW3l-w_LU-cQPN4XC9WIbGQFvtVVj4EDTJvnVVrTiX8gjdNFz8GB6_CXXHJ3GxVHmwo-xv0PArTSoV9u-UxysEVmQmPQv0Zwkd2CFaS0nCcZ8U"/>
+<span class="absolute bottom-2 left-2 px-2 py-0.5 rounded bg-secondary-container font-label-technical text-label-technical text-on-secondary-container font-bold">Kondisi 92%</span>
+</div>
+<div class="flex flex-col flex-1 justify-between gap-space-xs">
+<div>
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-outline">Penjual: Arga Mountaineering Store (Malang)</span>
+<span class="font-label-technical text-label-technical text-primary font-bold">VERIFIKASI FISIK LOLOS</span>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface mt-1">Carrier Deuter Aircontact Lite 50+10L - Forest Pine</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-1 mt-1">
+                  Resleting lancar YKK original, buckle utuh tanpa retak, minus lecet pemakaian wajar di bagian alas bawah carrier.
+                </p>
+</div>
+<!-- Pricing Detail -->
+<div class="flex items-end justify-between mt-2 pt-2">
+<div class="flex flex-col">
+<span class="font-label-technical text-label-technical uppercase text-outline">Metode: Virtual Account Mandiri</span>
+<span class="font-label-md text-label-md text-on-surface-variant">Ongkir Asuransi Disertakan</span>
+</div>
+<div class="text-right">
+<span class="font-label-technical text-label-technical uppercase text-outline">Total Tagihan</span>
+<p class="font-headline-md text-headline-md text-on-surface font-extrabold">Rp 1.420.000</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="flex flex-wrap items-center justify-between gap-space-sm pt-space-sm">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Pesanan otomatis batal jika melewati tenggat waktu.</span>
+<div class="flex items-center gap-space-xs">
+<button class="px-3 py-2 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-lg text-label-lg transition-colors">
+                Batalkan Pesanan
+              </button>
+<button class="flex items-center gap-2 px-6 py-2.5 rounded-lg bg-primary hover:bg-primary-container text-on-primary font-label-lg text-label-lg font-bold shadow-md transition-all">
+<span class="material-symbols-outlined text-[18px]">payments</span>
+<span>Bayar Sekarang</span>
+</button>
+</div>
+</div>
+</div>
+<!-- KARTU 3: SELESAI - DEPOSIT DIREFUND -->
+<div data-card data-status="selesai" data-tipe="rental" class="flex flex-col bg-surface-container-lowest rounded-xl shadow-md p-space-md md:p-space-lg transition-all hover:shadow-lg">
+<!-- Card Header & Meta -->
+<div class="flex flex-wrap items-center justify-between gap-space-sm pb-space-sm">
+<div class="flex items-center gap-space-sm">
+<span class="px-2.5 py-1 rounded bg-surface-container-high text-on-surface-variant font-label-technical text-label-technical font-bold uppercase tracking-wider flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+                Selesai • Deposit Direfund
+              </span>
+<span class="font-label-technical text-label-technical text-outline">ID: #RMB-RENT-78112</span>
+</div>
+<span class="font-label-md text-label-md text-outline">Selesai pada 03 Nov 2025</span>
+</div>
+<!-- Item Body Section -->
+<div class="flex flex-col sm:flex-row gap-space-md py-space-sm">
+<div class="relative w-full sm:w-36 h-36 rounded-lg overflow-hidden shrink-0 bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Technical weatherproof outdoor hardshell jacket in emerald alpine green hanging on timber frame, studio lighting highlighting waterproof seam sealed tape and zippers" src="https://lh3.googleusercontent.com/aida-public/AB6AXuApjmOn5t7ogrd6x5DuLSJmni0JDTySeMYn39MTpxhrIlQq4yNSMASMb-mmcRUUZKt_L1ajIxeHz8aQvis87KInSbAQuQQ0m-X2E5oBMuLTAG1qTxAH5LxIUQmIpX5JpzkgUIkuGRaXhGrbukqVrsIg5mPnAhcYTK7_WxoyzT8DK2vIKCkNz6IxqVTg7TTWvb2yd1CQiqYMcaCNbA_yS9oKtgfA_PsLj99fjIlrEQbJBXKcvkV9poBU"/>
+<span class="absolute bottom-2 left-2 px-2 py-0.5 rounded bg-surface-container-lowest/90 font-label-technical text-label-technical text-on-surface font-bold backdrop-blur-sm">Grade S (New)</span>
+</div>
+<div class="flex flex-col flex-1 justify-between gap-space-xs">
+<div>
+<span class="px-2 py-0.5 rounded bg-surface-container font-label-technical text-label-technical text-on-surface-variant font-semibold">RENTAL PREMIUM</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface mt-1">Jaket Gore-Tex Arc'teryx Beta LT - Emerald Alpine (Rental 4 Hari)</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+                  Vendor: Summit Vault Shelter (Bandung)
+                </p>
+</div>
+<!-- Refund Status Banner -->
+<div class="flex items-center gap-3 p-3 rounded-lg bg-surface-container-low mt-2">
+<span class="material-symbols-outlined text-primary text-[22px]">verified_user</span>
+<p class="font-body-sm text-body-sm text-on-surface leading-tight">
+<span class="font-bold text-primary">Peralatan telah dicek lengkap &amp; tanpa cacat.</span> Deposit <strong class="font-semibold">Rp 300.000</strong> telah dikembalikan ke Saldo RimbaPay Anda.
+                </p>
+</div>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="flex flex-wrap items-center justify-between gap-space-sm pt-space-sm">
+<div class="flex items-center gap-1 text-primary font-label-technical text-label-technical">
+<span class="material-symbols-outlined text-[16px]">receipt_long</span>
+<span>Invoice #INV-2025-8812 Tersimpan</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<button class="flex items-center gap-1 px-3 py-2 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-lg text-label-lg transition-colors">
+<span class="material-symbols-outlined text-[18px]">replay</span>
+<span>Sewa Lagi</span>
+</button>
+<button class="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-surface-container-highest hover:bg-surface-dim text-on-surface font-label-lg text-label-lg font-bold transition-all">
+<span class="material-symbols-outlined text-[18px] text-primary">star</span>
+<span>Beri Ulasan &amp; Rating</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Rail: User Quick Statistics & Environmental Impact (4 Cols) -->
+<div class="lg:col-span-4 flex flex-col gap-space-md sticky top-32">
+<!-- Widget 1: Saldo RimbaPay & Deposit Vault -->
+<div class="bg-surface-container-lowest rounded-xl shadow-md p-space-md flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[22px]">account_balance_wallet</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">RimbaPay</span>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-technical text-label-technical font-bold">Terverifikasi</span>
+</div>
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-1">
+<span class="font-label-technical text-label-technical text-outline uppercase">Saldo Tersedia / Deposit Kembali</span>
+<span class="font-display-mobile text-display-mobile text-on-surface font-extrabold tracking-tight">Rp 350.000</span>
+<div class="flex items-center gap-1 text-primary font-label-md text-label-md mt-1">
+<span class="material-symbols-outlined text-[16px]">check</span>
+<span>Siap ditarik ke rekening bank</span>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="flex-1 py-2.5 rounded-lg bg-primary hover:bg-primary-container text-on-primary font-label-lg text-label-lg font-bold transition-colors text-center shadow-sm">
+              Tarik Saldo
+            </button>
+<button class="flex-1 py-2.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-lg text-label-lg font-semibold transition-colors text-center">
+              Riwayat Deposit
+            </button>
+</div>
+</div>
+<!-- Widget 2: Status Gear Aktif di Luar -->
+<div class="bg-surface-container-lowest rounded-xl shadow-md p-space-md flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-title-md text-title-md text-on-surface font-bold">Gear Aktif di Lapangan</span>
+<span class="w-2.5 h-2.5 rounded-full bg-primary animate-ping"></span>
+</div>
+<div class="flex items-center gap-3 p-3 rounded-lg bg-secondary-container/40">
+<div class="w-10 h-10 rounded-lg bg-surface-container-lowest flex items-center justify-center shrink-0 text-primary">
+<span class="material-symbols-outlined text-[24px]">camping</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg text-on-surface font-bold leading-snug">1 Unit Tenda Eiger 4P</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Batas Drop-off: <strong class="text-on-surface">12 Nov, 18:00</strong></span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-1 text-on-surface-variant font-label-md text-label-md">
+<span>Perlu bantuan kurir jemput?</span>
+<a class="text-primary font-bold hover:underline" href="#">Pesan Kurir</a>
+</div>
+</div>
+<!-- Widget 3: Eco-Impact Badge (Circular Economy Outdoor) -->
+<div class="bg-gradient-to-br from-secondary-container/60 via-surface-container-lowest to-surface-container-lowest rounded-xl shadow-md p-space-md flex flex-col gap-3">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-full bg-primary text-on-primary flex items-center justify-center shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-[24px]">eco</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-technical text-label-technical uppercase tracking-wider text-secondary font-bold">Dampak Lingkungan</span>
+<span class="font-title-md text-title-md text-on-surface font-extrabold">Circular Mountain Gear</span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Dengan merental dan memakai gear preloved, Anda berkontribusi memperpanjang siklus hidup peralatan gunung.
+          </p>
+<!-- Metrics Bento Box -->
+<div class="grid grid-cols-2 gap-2 pt-1">
+<div class="p-2.5 rounded-lg bg-surface-container-lowest shadow-sm flex flex-col">
+<span class="font-headline-sm text-headline-sm font-extrabold text-primary">3 Gear</span>
+<span class="font-label-technical text-label-technical text-outline uppercase mt-0.5">Dipakai Ulang</span>
+</div>
+<div class="p-2.5 rounded-lg bg-surface-container-lowest shadow-sm flex flex-col">
+<span class="font-headline-sm text-headline-sm font-extrabold text-primary">~18 kg</span>
+<span class="font-label-technical text-label-technical text-outline uppercase mt-0.5">Jejak CO₂ Hemat</span>
+</div>
+</div>
+<!-- Tree graphic indicator -->
+<div class="flex items-center gap-2 pt-1 text-on-surface font-label-md text-label-md">
+<span class="material-symbols-outlined text-primary text-[18px]">forest</span>
+<span>Setara menanam 1 pohon pinus di jalur pendakian.</span>
+</div>
+</div>
+<!-- Escrow Protection Note -->
+<div class="p-space-sm rounded-lg bg-surface-container-low flex items-start gap-2.5">
+<span class="material-symbols-outlined text-primary text-[20px] shrink-0">shield</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+            Deposit Anda disimpan di rekening penampung pihak ketiga resmi. Dana baru dilepas ke vendor setelah konfirmasi cek fisik selesai tanpa denda.
+          </p>
+</div>
+</div>
+</div>
+</div>
+</div></main>

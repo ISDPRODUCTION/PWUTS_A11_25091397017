@@ -1,0 +1,242 @@
+<main class="w-full pt-28 bg-surface min-h-[calc(100vh-140px)]"><div class="flex flex-col w-full">
+<!-- Top Promotion & Filter Quickbar -->
+<section class="w-full bg-surface-container-low py-space-md">
+<div class="max-w-7xl mx-auto px-margin md:px-margin-tablet lg:px-margin-desktop">
+<div class="relative overflow-hidden bg-on-background text-surface-container-lowest rounded-xl p-space-lg md:p-space-xl shadow-md">
+<!-- Subtle Ambient Mountain Glow -->
+<div class="absolute -right-20 -bottom-20 w-80 h-80 rounded-full bg-primary/20 blur-3xl pointer-events-none"></div>
+<div class="absolute -left-10 -top-10 w-60 h-60 rounded-full bg-primary-fixed/15 blur-2xl pointer-events-none"></div>
+<div class="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-space-lg">
+<div class="max-w-2xl space-y-space-xs">
+<div class="inline-flex items-center gap-space-xs px-2.5 py-1 rounded-full bg-surface-container-lowest/10 backdrop-blur-md">
+<span class="w-2 h-2 rounded-full bg-primary-fixed animate-pulse"></span>
+<span class="font-label-technical text-label-technical text-primary-fixed uppercase tracking-wider">Circular Outdoor Ecosystem</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-surface-container-lowest tracking-tight">
+              Jelajahi Alam Lebih Hemat &amp; Berkelanjutan
+            </h1>
+<p class="font-body-md text-body-md text-surface-container-highest/80 max-w-xl">
+              Platform terverifikasi jual-beli gear preloved terkurasi dan rental perlengkapan pendakian higienis dengan sistem deposit aman.
+            </p>
+</div>
+<!-- Fast Action Tab & Promo Voucher -->
+<div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-space-sm w-full lg:w-auto">
+<div class="flex bg-surface-container-lowest/10 p-1 rounded-lg backdrop-blur-md">
+<button class="flex-1 sm:flex-none px-4 py-2 rounded-md font-label-md text-label-md transition-all bg-primary-fixed text-on-primary-fixed font-bold shadow-sm" id="btn-mode-all" onclick="setModeFilter('all')">
+                Semua Gear
+              </button>
+<button class="flex-1 sm:flex-none px-4 py-2 rounded-md font-label-md text-label-md text-surface-container-lowest hover:text-primary-fixed transition-all" id="btn-mode-preloved" onclick="setModeFilter('preloved')">
+                Preloved Grade A-B
+              </button>
+<button class="flex-1 sm:flex-none px-4 py-2 rounded-md font-label-md text-label-md text-surface-container-lowest hover:text-primary-fixed transition-all" id="btn-mode-rental" onclick="setModeFilter('rental')">
+                Sewa / Rental
+              </button>
+</div>
+<div class="flex items-center gap-2 bg-secondary-container text-on-secondary-container px-3.5 py-2 rounded-lg font-label-md text-label-md">
+<span class="material-symbols-outlined text-[18px]">local_offer</span>
+<div class="flex flex-col leading-tight">
+<span class="font-bold">KODE: RIMBABARU</span>
+<span class="font-body-sm text-body-sm opacity-90">Cashback 20% Sewa Pertama</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Main Content Layout (Sidebar Filter & Product Catalog Grid) -->
+<section class="w-full py-space-lg">
+<div class="max-w-7xl mx-auto px-margin md:px-margin-tablet lg:px-margin-desktop">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter-desktop items-start">
+<!-- Sidebar Filter (Desktop 3.5 cols) -->
+<aside class="lg:col-span-4 xl:col-span-3 flex flex-col gap-space-md">
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm space-y-space-lg">
+<!-- Header Filter -->
+<div class="flex items-center justify-between pb-space-xs border-b border-surface-container-highest">
+<div class="flex items-center gap-2 text-on-surface">
+<span class="material-symbols-outlined text-primary text-[22px]">tune</span>
+<span class="font-title-md text-title-md font-bold">Filter Katalog</span>
+</div>
+<button class="font-label-technical text-label-technical text-primary hover:underline uppercase tracking-wider" onclick="resetAllFilters()">
+                Reset
+              </button>
+</div>
+<!-- Tipe Transaksi Filter -->
+<div class="space-y-space-xs">
+<span class="font-label-technical text-label-technical text-outline uppercase tracking-wider">Tipe Transaksi</span>
+<div class="space-y-2 pt-1">
+<label class="flex items-center justify-between cursor-pointer group">
+<div class="flex items-center gap-2.5">
+<input checked="" class="w-4 h-4 rounded text-primary focus:ring-primary accent-primary cursor-pointer" id="filter-preloved" type="checkbox"/>
+<span class="font-body-md text-body-md text-on-surface group-hover:text-primary transition-colors">Beli Preloved</span>
+</div>
+<span class="font-label-technical text-label-technical bg-surface-container px-2 py-0.5 rounded-full text-on-surface-variant">94</span>
+</label>
+<label class="flex items-center justify-between cursor-pointer group">
+<div class="flex items-center gap-2.5">
+<input checked="" class="w-4 h-4 rounded text-primary focus:ring-primary accent-primary cursor-pointer" id="filter-rental" type="checkbox"/>
+<span class="font-body-md text-body-md text-on-surface group-hover:text-primary transition-colors">Rental / Sewa</span>
+</div>
+<span class="font-label-technical text-label-technical bg-surface-container px-2 py-0.5 rounded-full text-on-surface-variant">54</span>
+</label>
+</div>
+</div>
+<!-- Kategori Perlengkapan -->
+<div class="space-y-space-xs">
+<span class="font-label-technical text-label-technical text-outline uppercase tracking-wider">Kategori Perlengkapan</span>
+<div class="space-y-1.5 pt-1">
+<button class="w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg bg-surface-container-low text-primary font-bold font-label-md text-label-md">
+<span>Semua Kategori</span>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</button>
+<button class="w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface font-label-md text-label-md transition-colors">
+<span>Tenda &amp; Shelter</span>
+<span class="font-label-technical text-label-technical opacity-70">32</span>
+</button>
+<button class="w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface font-label-md text-label-md transition-colors">
+<span>Tas Carrier &amp; Daypack</span>
+<span class="font-label-technical text-label-technical opacity-70">48</span>
+</button>
+<button class="w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface font-label-md text-label-md transition-colors">
+<span>Sepatu &amp; Sandal Gunung</span>
+<span class="font-label-technical text-label-technical opacity-70">26</span>
+</button>
+<button class="w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface font-label-md text-label-md transition-colors">
+<span>Jaket &amp; Apparel Gunung</span>
+<span class="font-label-technical text-label-technical opacity-70">39</span>
+</button>
+<button class="w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface font-label-md text-label-md transition-colors">
+<span>Alat Masak &amp; Kompor</span>
+<span class="font-label-technical text-label-technical opacity-70">18</span>
+</button>
+<button class="w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface font-label-md text-label-md transition-colors">
+<span>Sleeping Bag &amp; Matras</span>
+<span class="font-label-technical text-label-technical opacity-70">21</span>
+</button>
+</div>
+</div>
+<!-- Kondisi Preloved -->
+<div class="space-y-space-xs">
+<span class="font-label-technical text-label-technical text-outline uppercase tracking-wider">Kondisi Fisik Preloved</span>
+<div class="space-y-2 pt-1">
+<label class="flex items-center gap-2 cursor-pointer">
+<input checked="" class="w-4 h-4 rounded text-primary accent-primary cursor-pointer" type="checkbox"/>
+<div class="flex items-center gap-1.5">
+<span class="px-2 py-0.5 rounded text-[11px] font-bold bg-secondary-container text-on-secondary-container">Grade A</span>
+<span class="font-body-sm text-body-sm text-on-surface">Like New (95-99%)</span>
+</div>
+</label>
+<label class="flex items-center gap-2 cursor-pointer">
+<input checked="" class="w-4 h-4 rounded text-primary accent-primary cursor-pointer" type="checkbox"/>
+<div class="flex items-center gap-1.5">
+<span class="px-2 py-0.5 rounded text-[11px] font-bold bg-surface-container text-on-surface-variant">Grade B</span>
+<span class="font-body-sm text-body-sm text-on-surface">Sangat Baik (85-94%)</span>
+</div>
+</label>
+<label class="flex items-center gap-2 cursor-pointer">
+<input class="w-4 h-4 rounded text-primary accent-primary cursor-pointer" type="checkbox"/>
+<div class="flex items-center gap-1.5">
+<span class="px-2 py-0.5 rounded text-[11px] font-bold bg-surface-container-high text-on-surface-variant">Grade C</span>
+<span class="font-body-sm text-body-sm text-on-surface">Wajar Pakai (70-84%)</span>
+</div>
+</label>
+</div>
+</div>
+<!-- Durasi Rental Populer -->
+<div class="space-y-space-xs">
+<span class="font-label-technical text-label-technical text-outline uppercase tracking-wider">Paket Sewa Populer</span>
+<div class="grid grid-cols-3 gap-1.5 pt-1">
+<button class="px-2 py-1.5 rounded-lg bg-surface-container-low hover:bg-secondary-container font-label-md text-label-md text-on-surface text-center transition-colors">
+                  1-3 Hari
+                </button>
+<button class="px-2 py-1.5 rounded-lg bg-secondary-container font-label-md text-label-md text-on-secondary-container font-bold text-center">
+                  4-7 Hari
+                </button>
+<button class="px-2 py-1.5 rounded-lg bg-surface-container-low hover:bg-secondary-container font-label-md text-label-md text-on-surface text-center transition-colors">
+                  Mingguan
+                </button>
+</div>
+</div>
+<!-- Rentang Harga -->
+<div class="space-y-space-xs">
+<div class="flex justify-between items-center">
+<span class="font-label-technical text-label-technical text-outline uppercase tracking-wider">Rentang Biaya (Rp)</span>
+<span class="font-label-md text-label-md text-primary font-bold" id="price-label">Maks. 2.5 Juta</span>
+</div>
+<input class="w-full accent-primary cursor-pointer" max="3500000" min="20000" oninput="updatePrice(this.value)" step="25000" type="range" value="2500000"/>
+<div class="grid grid-cols-2 gap-2 pt-1">
+<div class="bg-surface-container-low p-2 rounded-lg">
+<span class="font-label-technical text-label-technical text-outline block">MINIMAL</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold">Rp 20.000</span>
+</div>
+<div class="bg-surface-container-low p-2 rounded-lg text-right">
+<span class="font-label-technical text-label-technical text-outline block">MAKSIMAL</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold" id="price-max-display">Rp 2.500.000</span>
+</div>
+</div>
+</div>
+<!-- Lokasi Pengambilan / Seller -->
+<div class="space-y-space-xs">
+<span class="font-label-technical text-label-technical text-outline uppercase tracking-wider">Kota &amp; Hub Terdekat</span>
+<div class="flex flex-wrap gap-1.5 pt-1">
+<button class="px-2.5 py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-md text-label-md font-semibold">
+                  Semua
+                </button>
+<button class="px-2.5 py-1 rounded-full bg-surface-container-low text-on-surface-variant hover:bg-surface-container font-label-md text-label-md">
+                  Jabodetabek
+                </button>
+<button class="px-2.5 py-1 rounded-full bg-surface-container-low text-on-surface-variant hover:bg-surface-container font-label-md text-label-md">
+                  Bandung
+                </button>
+<button class="px-2.5 py-1 rounded-full bg-surface-container-low text-on-surface-variant hover:bg-surface-container font-label-md text-label-md">
+                  Malang
+                </button>
+<button class="px-2.5 py-1 rounded-full bg-surface-container-low text-on-surface-variant hover:bg-surface-container font-label-md text-label-md">
+                  Yogyakarta
+                </button>
+</div>
+</div>
+</div>
+<!-- Verified Guarantee Info Card -->
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm space-y-space-xs">
+<div class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined text-[20px]">verified</span>
+<span class="font-label-lg text-label-lg font-bold">Standard RimbaLestari</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+              Setiap alat preloved melalui verifikasi keaslian dan kelayakan seam-seal. Alat rental disterilisasi ozon dan uji pasak sebelum serah terima.
+            </p>
+</div>
+</aside>
+<!-- Main Product Grid Section (Desktop 8-9 cols) -->
+<main class="lg:col-span-8 xl:col-span-9 flex flex-col gap-space-md">
+<!-- Top Control Toolbar -->
+<div class="bg-surface-container-lowest p-space-sm md:p-space-md rounded-xl shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm flex-wrap">
+<span class="font-headline-sm text-headline-sm text-on-surface tracking-tight">Katalog Perlengkapan</span>
+<span class="font-label-technical text-label-technical px-2.5 py-1 bg-surface-container rounded-full text-on-surface-variant" id="jmlAlat">8 Alat Tersedia
+              </span>
+</div>
+<!-- Sort and Active View Mode -->
+<div class="flex items-center gap-space-sm">
+<span class="font-label-md text-label-md text-outline hidden sm:inline">Urutkan:</span>
+<select class="bg-surface-container-low text-on-surface font-label-md text-label-md px-3 py-1.5 rounded-lg outline-none cursor-pointer">
+<option value="relevant">Paling Sesuai</option>
+<option value="price-asc">Harga Terendah</option>
+<option value="price-desc">Harga Tertinggi</option>
+<option value="rating">Rating Tertinggi</option>
+<option value="popular">Paling Banyak Disewa</option>
+</select>
+</div>
+</div>
+<div id="pillFilter" class="flex flex-wrap items-center gap-2 mb-space-md"></div>
+<div id="gridProduk" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-gutter"></div>
+
+<!-- Modern Pagination Navigation -->
+<div class="mt-space-md p-space-sm bg-surface-container-lowest rounded-xl shadow-sm flex flex-col sm:flex-row items-center justify-between gap-space-sm">
+<span class="font-body-sm text-body-sm text-outline">
+              Menampilkan <span id="rngA" class="font-bold text-on-surface">1 - 6</span> dari <span id="rngB" class="font-bold text-on-surface">148</span> alat outdoor
+            </span>
+<div id="paging" class="flex items-center gap-1"></div>
+</div>
+</main>

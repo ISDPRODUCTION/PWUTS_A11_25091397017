@@ -1,0 +1,9 @@
+/* Gaya tambahan di luar Tailwind CDN */
+html,body{margin:0;padding:0}
+body{overscroll-behavior:none}
+::-webkit-scrollbar{display:none}
+.field-err{color:#ba1a1a;font-size:12px;font-weight:600}
+.field-err:empty{display:none}
+.is-invalid{border-color:#ba1a1a!important}
+header nav a{cursor:pointer}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
