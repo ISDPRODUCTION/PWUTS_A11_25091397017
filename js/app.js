@@ -21,7 +21,7 @@ function renderCartBadge(){
     $('#cartBadge').text('0').addClass('hidden');
   }
 }
-var S0 = {q:'', tipe:{preloved:true, rental:true}, kat:'', kota:'Semua', max:3500000, grade:{A:true,B:true,C:false}, sort:'relevant', page:1};
+var S0 = {q:'', tipe:{preloved:true, rental:true}, kat:'', kota:'Semua', max:6000000, grade:{A:true,B:true,C:true}, sort:'relevant', page:1};
 var S = $.extend(true, {}, S0);
 var USERS = [{id:'rian@email.com', pw:'Rimba1234'}, {id:'081234567890', pw:'Rimba1234'}];
 var BOOKED = [['2026-11-20','2026-11-23']];     // jadwal tenda yang sudah dipesan (dummy)
@@ -197,7 +197,7 @@ function renderKatalog(){
   pills.push(['tipe', both ? 'Beli Preloved + Rental' : (S.tipe.preloved ? 'Beli Preloved' : (S.tipe.rental ? 'Rental / Sewa' : 'Tidak ada tipe'))]);
   var g = ['A','B','C'].filter(function(x){ return S.grade[x]; }).join(' & ');
   pills.push(['grade', 'Grade ' + (g || '-')]);
-  if (S.max < 3500000) pills.push(['max', '≤ ' + rp(S.max)]);
+  if (S.max < 6000000) pills.push(['max', '≤ ' + rp(S.max)]);
   if (S.kat) pills.push(['kat', KAT[S.kat]]);
   if (S.kota !== 'Semua') pills.push(['kota', S.kota]);
   if (S.q) pills.push(['q', '"' + S.q + '"']);
@@ -239,8 +239,8 @@ INIT.katalog = function(){
     .on('click.kat', '[data-pg]', function(){ if (this.disabled) return; S.page = +$(this).data('pg'); renderKatalog(); window.scrollTo(0, 280); })
     .on('click.kat', '[data-pill]', function(){
       var k = $(this).data('pill');
-      if (k === 'tipe') S.tipe = {preloved:true, rental:true}; if (k === 'grade') S.grade = {A:true,B:true,C:false};
-      if (k === 'max') S.max = 3500000; if (k === 'kat') S.kat = ''; if (k === 'kota') S.kota = 'Semua'; if (k === 'q') S.q = '';
+      if (k === 'tipe') S.tipe = {preloved:true, rental:true}; if (k === 'grade') S.grade = {A:true,B:true,C:true};
+      if (k === 'max') S.max = 6000000; if (k === 'kat') S.kat = ''; if (k === 'kota') S.kota = 'Semua'; if (k === 'q') S.q = '';
       S.page = 1; setActive(); syncUI(); renderKatalog();
     });
   $('#filter-preloved, #filter-rental').on('change', function(){ S.tipe = {preloved: $('#filter-preloved').is(':checked'), rental: $('#filter-rental').is(':checked')}; S.page = 1; setActive(); syncUI(); renderKatalog(); });

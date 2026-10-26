@@ -134,7 +134,7 @@
 </div>
 </label>
 <label class="flex items-center gap-2 cursor-pointer">
-<input class="w-4 h-4 rounded text-primary accent-primary cursor-pointer" type="checkbox"/>
+<input checked="" class="w-4 h-4 rounded text-primary accent-primary cursor-pointer" type="checkbox"/>
 <div class="flex items-center gap-1.5">
 <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-surface-container-high text-on-surface-variant">Grade C</span>
 <span class="font-body-sm text-body-sm text-on-surface">Wajar Pakai (70-84%)</span>
@@ -161,17 +161,17 @@
 <div class="space-y-space-xs">
 <div class="flex justify-between items-center">
 <span class="font-label-technical text-label-technical text-outline uppercase tracking-wider">Rentang Biaya (Rp)</span>
-<span class="font-label-md text-label-md text-primary font-bold" id="price-label">Maks. 2.5 Juta</span>
+<span class="font-label-md text-label-md text-primary font-bold" id="price-label">Maks. Rp 6.000.000</span>
 </div>
-<input class="w-full accent-primary cursor-pointer" max="3500000" min="20000" oninput="updatePrice(this.value)" step="25000" type="range" value="2500000"/>
+<input class="w-full accent-primary cursor-pointer" max="6000000" min="15000" oninput="updatePrice(this.value)" step="50000" type="range" value="6000000"/>
 <div class="grid grid-cols-2 gap-2 pt-1">
 <div class="bg-surface-container-low p-2 rounded-lg">
 <span class="font-label-technical text-label-technical text-outline block">MINIMAL</span>
-<span class="font-label-md text-label-md text-on-surface font-semibold">Rp 20.000</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold">Rp 15.000</span>
 </div>
 <div class="bg-surface-container-low p-2 rounded-lg text-right">
 <span class="font-label-technical text-label-technical text-outline block">MAKSIMAL</span>
-<span class="font-label-md text-label-md text-on-surface font-semibold" id="price-max-display">Rp 2.500.000</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold" id="price-max-display">Rp 6.000.000</span>
 </div>
 </div>
 </div>
